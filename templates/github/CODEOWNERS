@@ -1,0 +1,45 @@
+# CODEOWNERS - Define code owners for automatic review requests
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+* @your-org/core-team
+
+# Frontend
+/src/app/ @your-org/frontend-team
+/src/components/ @your-org/frontend-team
+/src/styles/ @your-org/frontend-team
+
+# Backend / API
+/src/app/api/ @your-org/backend-team
+/src/services/ @your-org/backend-team
+/src/lib/ @your-org/backend-team
+
+# Infrastructure
+/docker/ @your-org/devops-team
+/.github/workflows/ @your-org/devops-team
+/terraform/ @your-org/devops-team
+/k8s/ @your-org/devops-team
+
+# Database
+/prisma/ @your-org/backend-team @your-org/dba-team
+/src/db/ @your-org/backend-team
+
+# Tests
+/tests/ @your-org/qa-team
+/__tests__/ @your-org/qa-team
+*.test.ts @your-org/qa-team
+*.test.tsx @your-org/qa-team
+
+# Documentation
+/docs/ @your-org/docs-team
+*.md @your-org/docs-team
+
+# Security-sensitive files (require security team review)
+/.env.example @your-org/security-team
+/src/lib/auth/ @your-org/security-team
+/src/middleware/ @your-org/security-team
+
+# Config files (require lead review)
+package.json @your-org/tech-leads
+tsconfig.json @your-org/tech-leads
+next.config.js @your-org/tech-leads

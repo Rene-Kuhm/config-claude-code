@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "claude-code-alerts",
+  "version": "1.0.0",
+  "description": "Alerting configuration for Claude Code Enterprise",
+
+  "enabled": true,
+
+  "channels": {
+    "slack": {
+      "enabled": true,
+      "webhook": "${CLAUDE_SLACK_WEBHOOK}",
+      "channel": "#alerts",
+      "mention_on_critical": "@channel"
+    },
+    "email": {
+      "enabled": false,
+      "recipients": ["team@example.com"],
+      "smtp": {
+        "host": "${SMTP_HOST}",
+        "port": 587,
+        "user": "${SMTP_USER}",
+        "pass": "${SMTP_PASS}"
+      }
+    },
+    "console": {
+      "enabled": true
+    }
+  },
+
+  "rules": [
+    {
+      "name": "high-error-rate",
+      "description": "Alert when error rate exceeds threshold",
+      "condition": {
+        "metric": "error_rate",
+        "operator": ">",
+        "threshold": 0.05,
+        "window": "5m"
+      },
+      "severity": "critical",
+      "channels": ["slack", "console"],
+      "cooldown": "15m"
+    },
+    {
+      "name": "high-response-time",
+      "description": "Alert when response time is slow",
+      "condition": {
+        "metric": "response_time_p95",
+        "operator": ">",
+        "threshold": 2000,
+        "window": "5m"
+      },
+      "severity": "warning",
+      "channels": ["console"],
+      "cooldown": "30m"
+    },
+    {
+      "name": "high-memory-usage",
+      "description": "Alert when memory usage is high",
+      "condition": {
+        "metric": "memory_usage_percent",
+        "operator": ">",
+        "threshold": 90,
+        "window": "1m"
+      },
+      "severity": "critical",
+      "channels": ["slack", "console"],
+      "cooldown": "5m"
+    },
+    {
+      "name": "disk-space-low",
+      "description": "Alert when disk space is running low",
+      "condition": {
+        "metric": "disk_usage_percent",
+        "operator": ">",
+        "threshold": 80,
+        "window": "5m"
+      },
+      "severity": "warning",
+      "channels": ["console"],
+      "cooldown": "1h"
+    },
+    {
+      "name": "database-connection-failed",
+      "description": "Alert when database connection fails",
+      "condition": {
+        "metric": "db_connection_errors",
+        "operator": ">",
+        "threshold": 0,
+        "window": "1m"
+      },
+      "severity": "critical",
+      "channels": ["slack", "console"],
+      "cooldown": "5m"
+    },
+    {
+      "name": "high-claude-cost",
+      "description": "Alert when Claude Code costs exceed daily budget",
+      "condition": {
+        "metric": "claude_daily_cost",
+        "operator": ">",
+        "threshold": 10.00,
+        "window": "1d"
+      },
+      "severity": "warning",
+      "channels": ["console"],
+      "cooldown": "24h"
+    },
+    {
+      "name": "security-vulnerability",
+      "description": "Alert when new security vulnerability is detected",
+      "condition": {
+        "metric": "security_vulnerabilities_high",
+        "operator": ">",
+        "threshold": 0,
+        "window": "1h"
+      },
+      "severity": "critical",
+      "channels": ["slack", "console"],
+      "cooldown": "1h"
+    },
+    {
+      "name": "build-failure",
+      "description": "Alert when build fails",
+      "condition": {
+        "metric": "build_status",
+        "operator": "==",
+        "threshold": "failed",
+        "window": "immediate"
+      },
+      "severity": "critical",
+      "channels": ["slack", "console"],
+      "cooldown": "0"
+    }
+  ],
+
+  "severity_colors": {
+    "critical": "#FF0000",
+    "warning": "#FFA500",
+    "info": "#0000FF"
+  },
+
+  "templates": {
+    "slack": {
+      "critical": ":rotating_light: *CRITICAL ALERT*\n*{rule_name}*\n{description}\nValue: {current_value} (threshold: {threshold})\nTime: {timestamp}",
+      "warning": ":warning: *Warning*\n*{rule_name}*\n{description}\nValue: {current_value}\nTime: {timestamp}",
+      "info": ":information_source: *Info*\n{rule_name}: {description}"
+    }
+  }
+}

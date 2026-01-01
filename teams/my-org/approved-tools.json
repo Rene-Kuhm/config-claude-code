@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "approved-tools",
+  "version": "1.0.0",
+  "description": "Lista de herramientas aprobadas para uso enterprise",
+  "lastUpdated": "2024-12-25",
+  "maintainer": "engineering@myorg.com",
+
+  "categories": {
+    "languages": {
+      "approved": [
+        { "name": "TypeScript", "version": ">=5.0", "required": true },
+        { "name": "JavaScript", "version": "ES2022+", "notes": "Solo cuando TypeScript no es viable" },
+        { "name": "Python", "version": ">=3.11", "notes": "Para scripts y ML" },
+        { "name": "SQL", "notes": "PostgreSQL dialect preferred" }
+      ],
+      "restricted": [
+        { "name": "CoffeeScript", "reason": "Legacy, no nuevos proyectos" }
+      ],
+      "prohibited": [
+        { "name": "PHP", "reason": "No en stack actual" }
+      ]
+    },
+
+    "frameworks": {
+      "frontend": {
+        "approved": [
+          { "name": "Next.js", "version": ">=15.0", "required": true },
+          { "name": "React", "version": ">=19.0", "required": true },
+          { "name": "TailwindCSS", "version": ">=3.4" },
+          { "name": "Framer Motion", "version": ">=11.0" },
+          { "name": "GSAP", "version": ">=3.12", "notes": "Con licencia comercial" }
+        ],
+        "restricted": [
+          { "name": "Vue.js", "reason": "Evaluar caso por caso" },
+          { "name": "Angular", "reason": "Evaluar caso por caso" }
+        ]
+      },
+      "backend": {
+        "approved": [
+          { "name": "Express", "version": ">=4.18" },
+          { "name": "Fastify", "version": ">=4.0" },
+          { "name": "Hono", "version": ">=4.0" },
+          { "name": "tRPC", "version": ">=11.0" }
+        ]
+      }
+    },
+
+    "databases": {
+      "approved": [
+        { "name": "PostgreSQL", "version": ">=15", "primary": true },
+        { "name": "Redis", "version": ">=7.0", "useCase": "Caching, sessions" },
+        { "name": "MongoDB", "version": ">=7.0", "useCase": "Document storage when needed" }
+      ],
+      "orm": [
+        { "name": "Prisma", "version": ">=5.0", "preferred": true },
+        { "name": "Drizzle", "version": ">=0.29", "notes": "Alternative for performance" }
+      ],
+      "prohibited": [
+        { "name": "MySQL", "reason": "Standardizing on PostgreSQL" }
+      ]
+    },
+
+    "testing": {
+      "approved": [
+        { "name": "Vitest", "version": ">=2.0", "required": true },
+        { "name": "React Testing Library", "version": ">=14.0" },
+        { "name": "Playwright", "version": ">=1.40", "useCase": "E2E testing" },
+        { "name": "MSW", "version": ">=2.0", "useCase": "API mocking" }
+      ],
+      "prohibited": [
+        { "name": "Jest", "reason": "Migrated to Vitest" },
+        { "name": "Enzyme", "reason": "Deprecated" }
+      ]
+    },
+
+    "devtools": {
+      "linting": [
+        { "name": "Biome", "version": ">=1.9", "required": true },
+        { "name": "ESLint", "version": ">=8.0", "notes": "Solo para reglas no cubiertas por Biome" }
+      ],
+      "formatting": [
+        { "name": "Biome", "required": true, "notes": "NO usar Prettier" }
+      ],
+      "packageManager": [
+        { "name": "pnpm", "version": ">=8.0", "preferred": true },
+        { "name": "bun", "version": ">=1.0", "notes": "Para máxima velocidad" }
+      ],
+      "prohibited": [
+        { "name": "Prettier", "reason": "Replaced by Biome" },
+        { "name": "npm", "reason": "Use pnpm instead" },
+        { "name": "yarn", "reason": "Standardized on pnpm" }
+      ]
+    },
+
+    "infrastructure": {
+      "cloud": [
+        { "name": "Vercel", "useCase": "Frontend deployments" },
+        { "name": "AWS", "services": ["ECS", "RDS", "S3", "CloudFront", "Lambda"] },
+        { "name": "GCP", "services": ["Cloud Run", "Cloud SQL"], "notes": "Secondary" }
+      ],
+      "containerization": [
+        { "name": "Docker", "version": ">=24.0" },
+        { "name": "Kubernetes", "version": ">=1.28" }
+      ],
+      "iac": [
+        { "name": "Terraform", "version": ">=1.6", "preferred": true },
+        { "name": "Pulumi", "notes": "Alternative for TypeScript IaC" }
+      ]
+    },
+
+    "security": {
+      "authentication": [
+        { "name": "Auth.js", "version": ">=5.0" },
+        { "name": "Clerk", "notes": "For managed auth" },
+        { "name": "AWS Cognito" }
+      ],
+      "secrets": [
+        { "name": "AWS Secrets Manager", "preferred": true },
+        { "name": "HashiCorp Vault" },
+        { "name": "Doppler" }
+      ],
+      "scanning": [
+        { "name": "Snyk", "required": true },
+        { "name": "GitHub Advanced Security" },
+        { "name": "npm audit" }
+      ]
+    },
+
+    "observability": {
+      "logging": [
+        { "name": "Pino", "preferred": true },
+        { "name": "Winston" }
+      ],
+      "monitoring": [
+        { "name": "Datadog", "preferred": true },
+        { "name": "New Relic" },
+        { "name": "Grafana + Prometheus" }
+      ],
+      "errorTracking": [
+        { "name": "Sentry", "required": true }
+      ]
+    }
+  },
+
+  "exceptions": {
+    "process": "Para usar herramientas fuera de esta lista, crear un ADR y obtener aprobación de Tech Lead",
+    "contact": "tech-lead@myorg.com"
+  }
+}

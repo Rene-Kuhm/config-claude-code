@@ -1,0 +1,24 @@
+# Archivos sensibles
+settings.local.json
+history.jsonl
+stats-cache.json
+
+# Cachés y temporales
+debug/
+file-history/
+image-cache/
+logs/
+session-env/
+shell-snapshots/
+statsig/
+telemetry/
+todos/
+backups/
+downloads/
+plans/
+projects/
+
+# OS files
+.DS_Store
+*.swp
+*~
