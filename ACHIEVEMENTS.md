@@ -6,3 +6,5 @@ Este archivo rastrea los logros conseguidos en este repositorio.
 
 - 🎲 **YOLO** - 2026-01-04: Merged PR without code review
 - 🦈 **Pull Shark** - 2026-01-04: Second merged pull request
+- 👥 **Pair Extraordinaire** - 2026-01-04: Co-authored commits in merged PR
+- ⚡ **Quickdraw** - 2026-01-04: Issue closed in <5 minutes
